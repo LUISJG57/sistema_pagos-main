@@ -1,7 +1,7 @@
-
 [run]
 branch = True
 source = decision_engine
+relative_files = True
 omit =
     tests/*
     .venv/*
@@ -10,3 +10,6 @@ omit =
 [report]
 show_missing = True
 skip_covered = False
+
+[xml]
+output = coverage.xml
