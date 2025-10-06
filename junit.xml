@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="12" time="1.184" timestamp="2025-10-05T22:10:56.910637-06:00" hostname="MacBook-Air-de-Luis-40.local"><testcase classname="tests.test_app" name="test_health" time="0.008" /><testcase classname="tests.test_app" name="test_config_contains_score_mapping" time="0.002" /><testcase classname="tests.test_app" name="test_transaction_in_review_path" time="0.009" /><testcase classname="tests.test_app" name="test_transaction_hard_block_rejection" time="0.002" /><testcase classname="tests.test_import_engine" name="test_import_engine_basic" time="0.000" /><testcase classname="tests.test_import_engine" name="test_env_overrides_cover_try_block" time="0.001" /><testcase classname="tests.test_import_engine" name="test_is_night_true_and_false" time="0.000" /><testcase classname="tests.test_import_engine" name="test_high_amount_default_and_specific" time="0.000" /><testcase classname="tests.test_import_engine" name="test_assess_row_hard_block_returns_early" time="0.000" /><testcase classname="tests.test_import_engine" name="test_assess_row_paths_review_reject_and_buffer" time="0.001"><failure message="AssertionError: assert 'REJECTED' == 'IN_REVIEW'&#10;  &#10;  - IN_REVIEW&#10;  + REJECTED">def test_assess_row_paths_review_reject_and_buffer():
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="12" time="1.134" timestamp="2025-10-05T22:19:14.684967-06:00" hostname="MacBook-Air-de-Luis-40.local"><testcase classname="tests.test_app" name="test_health" time="0.008" /><testcase classname="tests.test_app" name="test_config_contains_score_mapping" time="0.002" /><testcase classname="tests.test_app" name="test_transaction_in_review_path" time="0.012" /><testcase classname="tests.test_app" name="test_transaction_hard_block_rejection" time="0.002" /><testcase classname="tests.test_import_engine" name="test_import_engine_basic" time="0.000" /><testcase classname="tests.test_import_engine" name="test_env_overrides_cover_try_block" time="0.001" /><testcase classname="tests.test_import_engine" name="test_is_night_true_and_false" time="0.000" /><testcase classname="tests.test_import_engine" name="test_high_amount_default_and_specific" time="0.000" /><testcase classname="tests.test_import_engine" name="test_assess_row_hard_block_returns_early" time="0.000" /><testcase classname="tests.test_import_engine" name="test_assess_row_paths_review_reject_and_buffer" time="0.001"><failure message="AssertionError: assert 'REJECTED' == 'IN_REVIEW'&#10;  &#10;  - IN_REVIEW&#10;  + REJECTED">def test_assess_row_paths_review_reject_and_buffer():
         mod = importlib.import_module(MODULE_NAME)
     
         # IN_REVIEW
@@ -20,7 +20,7 @@ E
 E         - IN_REVIEW
 E         + REJECTED
 
-tests/test_import_engine.py:71: AssertionError</failure></testcase><testcase classname="tests.test_import_engine" name="test_run_writes_csv_and_returns_df" time="0.004"><failure message="ValueError: dict contains fields not in fieldnames: 'bin_country', 'hour', 'latency_ms', 'user_reputation', 'email_risk', 'device_fingerprint_risk', 'ip_country', 'customer_txn_30d'">tmp_path = PosixPath('/private/var/folders/mt/qnb3yx5n1w9891c4qncdw6r00000gn/T/pytest-of-luisgarcia/pytest-4/test_run_writes_csv_and_return0')
+tests/test_import_engine.py:71: AssertionError</failure></testcase><testcase classname="tests.test_import_engine" name="test_run_writes_csv_and_returns_df" time="0.010"><failure message="ValueError: dict contains fields not in fieldnames: 'hour', 'ip_country', 'device_fingerprint_risk', 'customer_txn_30d', 'user_reputation', 'bin_country', 'latency_ms', 'email_risk'">tmp_path = PosixPath('/private/var/folders/mt/qnb3yx5n1w9891c4qncdw6r00000gn/T/pytest-of-luisgarcia/pytest-7/test_run_writes_csv_and_return0')
 
     def test_run_writes_csv_and_returns_df(tmp_path):
         mod = importlib.import_module(MODULE_NAME)
@@ -38,12 +38,12 @@ tests/test_import_engine.py:71: AssertionError</failure></testcase><testcase cla
 &gt;           w.writeheader(); w.writerows(rows)
 
 tests/test_import_engine.py:120: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 /Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/csv.py:157: in writerows
     return self.writer.writerows(map(self._dict_to_list, rowdicts))
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-self = &lt;csv.DictWriter object at 0x11a3d09d0&gt;
+self = &lt;csv.DictWriter object at 0x1112cd510&gt;
 rowdict = {'amount_mxn': 2600, 'bin_country': 'MX', 'chargeback_count': 0, 'customer_txn_30d': 0, ...}
 
     def _dict_to_list(self, rowdict):
@@ -52,6 +52,6 @@ rowdict = {'amount_mxn': 2600, 'bin_country': 'MX', 'chargeback_count': 0, 'cust
             if wrong_fields:
 &gt;               raise ValueError("dict contains fields not in fieldnames: "
                                  + ", ".join([repr(x) for x in wrong_fields]))
-E               ValueError: dict contains fields not in fieldnames: 'bin_country', 'hour', 'latency_ms', 'user_reputation', 'email_risk', 'device_fingerprint_risk', 'ip_country', 'customer_txn_30d'
+E               ValueError: dict contains fields not in fieldnames: 'hour', 'ip_country', 'device_fingerprint_risk', 'customer_txn_30d', 'user_reputation', 'bin_country', 'latency_ms', 'email_risk'
 
-/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/csv.py:149: ValueError</failure></testcase><testcase classname="tests.test_import_engine" name="test_main_covers_argparse_and___main__" time="0.008" /></testsuite></testsuites>
+/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/csv.py:149: ValueError</failure></testcase><testcase classname="tests.test_import_engine" name="test_main_covers_argparse_and___main__" time="0.014" /></testsuite></testsuites>

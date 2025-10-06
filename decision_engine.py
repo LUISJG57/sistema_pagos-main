@@ -118,7 +118,9 @@ def assess_row(row: pd.Series, cfg: Dict[str, Any]) -> Dict[str, Any]:
         reasons.append("frequency_buffer(-1)")
 
     # Decision mapping
-    if score >= cfg["score_to_decision"]["reject_at"]:
+    # Treat scores greater than the reject threshold as REJECTED. Scores equal
+    # to the reject threshold map to IN_REVIEW to match existing tests.
+    if score > cfg["score_to_decision"]["reject_at"]:
         decision = DECISION_REJECTED
     elif score >= cfg["score_to_decision"]["review_at"]:
         decision = DECISION_IN_REVIEW

@@ -53,7 +53,8 @@ def test_assess_row_hard_block_returns_early():
 
 
 def test_assess_row_paths_review_reject_and_buffer():
-    mod = importlib.import_module(MODULE_NAME)
+    # Ensure module is reloaded with current environment to avoid state leaking
+    mod = importlib.reload(importlib.import_module(MODULE_NAME))
 
     # IN_REVIEW
     row_review = pd.Series({
@@ -115,8 +116,10 @@ def test_run_writes_csv_and_returns_df(tmp_path):
          "user_reputation": "new", "hour": 23, "bin_country": "MX", "ip_country": "US",
          "amount_mxn": 2600, "product_type": "digital", "latency_ms": 0, "customer_txn_30d": 0},
     ]
+    # Use the union of keys across rows as fieldnames to be robust
+    fieldnames = sorted({k for r in rows for k in r.keys()})
     with inp.open("w", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=rows[0].keys())
+        w = csv.DictWriter(f, fieldnames=fieldnames)
         w.writeheader(); w.writerows(rows)
 
     df_out = mod.run(str(inp), str(outp))
