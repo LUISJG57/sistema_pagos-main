@@ -61,14 +61,19 @@ jobs:
           until [ $attempt -gt $max_attempts ]
           do
             echo "Sonar attempt $attempt/$max_attempts"
+            echo "Listing files in workspace before scanner:"
+            ls -la
+            echo "Contents of root (for diagnostics):"
+            find . -maxdepth 2 -type f -print
+
             docker run --rm \
               -e SONAR_HOST_URL="${SONAR_HOST_URL}" \
               -e SONAR_TOKEN="${SONAR_TOKEN}" \
               -v "$PWD":"/usr/src" \
               sonarsource/sonar-scanner-cli:latest \
                 -Dsonar.projectBaseDir=/usr/src \
-                -Dsonar.python.coverage.reportPaths=coverage.xml \
-                -Dsonar.python.xunit.reportPath=junit.xml \
+                -Dsonar.python.coverage.reportPaths=/usr/src/coverage.xml \
+                -Dsonar.python.xunit.reportPath=/usr/src/junit.xml \
                 -Dsonar.projectKey=${{ github.repository }} || true
 
             exit_code=$?
